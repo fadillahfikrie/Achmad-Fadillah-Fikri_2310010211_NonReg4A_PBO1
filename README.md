@@ -12,96 +12,104 @@ Aplikasi ini mengimplementasikan beberapa konsep penting dalam pemrograman beror
 
 Berikut adalah bagian kode yang relevan dengan konsep OOP yang dijelaskan:
 
-1. **Class** adalah template atau blueprint dari object. Pada kode ini, `Mahasiswa`, `MahasiswaDetail`, dan `MahasiswaBeraksi` adalah contoh dari class.
+1. **Class** adalah template atau blueprint dari object. Pada kode ini, `Produk`, `ProdukGame`, dan `TokoGameOnline` adalah contoh dari class.
 
 ```bash
-public class Mahasiswa {
+public abstract class Produk {
     ...
 }
 
-public class MahasiswaDetail extends Mahasiswa {
+public class ProdukGame extends Produk {
     ...
 }
 
-public class MahasiswaBeraksi {
+public class TokoGameOnline {
     ...
 }
 ```
 
-2. **Object** adalah instance dari class. Pada kode ini, `mhs[i] = new MahasiswaDetail(nama, npm);` adalah contoh pembuatan object.
+2. **Object** adalah instance dari class. Pada kode ini, `daftarGame[0] = new ProdukGame("001", "Cyberpunk 2077", 250000, "RPG");` adalah contoh pembuatan object.
 
 ```bash
-mhs[i] = new MahasiswaDetail(nama, npm);
+daftarGame[1] = new ProdukGame("002", "Red Dead Redemption 2", 319000, "Open World");
 ```
 
-3. **Atribut** adalah variabel yang ada dalam class. Pada kode ini, `nama` dan `npm` adalah contoh atribut.
+3. **Atribut** adalah variabel yang ada dalam class. Pada kode ini, `idProduk` `nama` dan `harga` adalah contoh atribut.
 
 ```bash
+String idProduk;
 String nama;
-String npm;
+harga;
 ```
 
-4. **Constructor** adalah method yang pertama kali dijalankan pada saat pembuatan object. Pada kode ini, constructor ada di dalam class `Mahasiswa` dan `MahasiswaDetail`.
+4. **Constructor** adalah method yang pertama kali dijalankan pada saat pembuatan object. Pada kode ini, constructor ada di dalam class `Produk` dan `ProdukGame`.
 
 ```bash
-public Mahasiswa(String nama, String npm) {
-    this.nama = nama;
-    this.npm = npm;
+    public Produk(String idProduk, String nama, double harga) {
+        this.idProduk = idProduk;
+        this.nama = nama;
+        this.harga = harga;
+    }
 }
-
-public MahasiswaDetail(String nama, String npm) {
-    super(nama, npm);
-}
-```
-
-5. **Mutator** atau setter digunakan untuk mengubah nilai dari suatu atribut. Pada kode ini, `setNama` dan `setNpm` adalah contoh method mutator.
-
-```bash
-public void setNama(String nama) {
-    this.nama = nama;
-}
-
-public void setNpm(String npm) {
-    this.npm = npm;
+public ProdukGame(String idProduk, String nama, double harga, String genre) {
+        super(idProduk, nama, harga);
+        this.genre = genre;
 }
 ```
 
-6. **Accessor** atau getter digunakan untuk mengambil nilai dari suatu atribut. Pada kode ini, `getNama`, `getNpm`, `getTahunMasuk`, `getFakultas`, `getProdi`, dan `getNoRegistrasi` adalah contoh method accessor.
+5. **Mutator** atau setter digunakan untuk mengubah nilai dari suatu atribut. Pada kode ini, `setHarga` adalah contoh method mutator.
 
 ```bash
-public String getNama() {
-    return nama;
-}
-
-public String getNpm() {
-    return npm;
+ public void setHarga(double harga) {
+        if (harga >= 0) { // Validasi sederhana
+            this.harga = harga;
 }
 ```
 
-7. **Encapsulation** adalah konsep menyembunyikan data dengan membuat atribut menjadi private dan hanya bisa diakses melalui method. Pada kode ini, atribut `nama` dan `npm` dienkapsulasi dan hanya bisa diakses melalui method getter dan setter.
+6. **Accessor** atau getter digunakan untuk mengambil nilai dari suatu atribut. Pada kode ini, `getIdProduk`, `getNama`,  dan `getHarga` adalah contoh method accessor.
 
 ```bash
-private String nama;
-private String npm;
+public String getIdProduk() {
+        return idProduk;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public double getHarga() {
+        return harga;
+}
 ```
 
-8. **Inheritance** adalah konsep di mana sebuah class bisa mewarisi property dan method dari class lain. Pada kode ini, `MahasiswaDetail` mewarisi `Mahasiswa` dengan sintaks `extends`.
+7. **Encapsulation** adalah konsep menyembunyikan data dengan membuat atribut menjadi private dan hanya bisa diakses melalui method. Pada kode ini, atribut `idProduk` `getNama` dan `getHarga` dienkapsulasi dan hanya bisa diakses melalui method getter dan setter.
 
 ```bash
-public class MahasiswaDetail extends Mahasiswa {
+    private String idProduk;
+    private String nama;
+    private double harga;
+```
+
+8. **Inheritance** adalah konsep di mana sebuah class bisa mewarisi property dan method dari class lain. Pada kode ini, `ProdukGame` mewarisi `Produk` dengan sintaks `extends`.
+
+```bash
+public class ProdukGame extends Produk {
     ...
 }
 ```
 
-9. **Polymorphism** adalah konsep di mana sebuah nama dapat digunakan untuk merujuk ke beberapa tipe atau bentuk objek berbeda. Ini memungkinkan metode-metode dengan nama yang sama untuk berperilaku berbeda tergantung pada tipe objek yang mereka manipulasi, polymorphism bisa berbentuk Overloading ataupun Overriding. Pada kode ini, method `displayInfo(String)` di `Mahasiswa` merupakan overloading method `displayInfo` dan `displayInfo` di `MahasiswaDetail` merupakan override dari method `displayInfo` di `Mahasiswa`.
+9. **Polymorphism** adalah konsep di mana sebuah nama dapat digunakan untuk merujuk ke beberapa tipe atau bentuk objek berbeda. Ini memungkinkan metode-metode dengan nama yang sama untuk berperilaku berbeda tergantung pada tipe objek yang mereka manipulasi, polymorphism bisa berbentuk Overloading ataupun Overriding. Pada kode ini, method `tampilkanInfo()` di `produk` merupakan overloading method `tampilkanInfo` dan `tampilkanInfoo` di `ProdukGame` merupakan override dari method `displayInfo` di `Produk`.
 
 ```bash
-public String displayInfo(String kelas) {
-    return displayInfo() + "\nKelas: " + kelas;
+public abstract void tampilkanInfo();
 }
 
 @Override
-public String displayInfo() {
+    public void tampilkanInfo() {
+        System.out.println("ID Game: " + super.getIdProduk());
+        System.out.println("Nama Game: " + super.getNama());
+        System.out.println("Genre: " + this.genre);
+        System.out.printf("Harga: Rp%,.0f\n", super.getHarga());
     ...
 }
 ```
