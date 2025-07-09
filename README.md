@@ -4,7 +4,7 @@ Proyek ini adalah contoh sederhana aplikasi pembelian game digital online menggu
 
 ## Deskripsi
 
-Aplikasi ini menerima input berupa idproduk, nama, dan harga , dan memberikan output berupa informasi detail dari id produk tersebut seperti nama game, harga game, dan budget kita.
+Aplikasi ini menerima input berupa idproduk, nama, dan harga , dan memberikan output berupa informasi detail dari id produk tersebut seperti nama game, harga game, genre, dan budget kita.
 
 Aplikasi ini mengimplementasikan beberapa konsep penting dalam pemrograman berorientasi objek (OOP) seperti Class, Object, Atribut, Method Constructor, Method Mutator, Method Accessor, Encapsulation, Inheritance, Overloading, Overriding, Seleksi, Perulangan, IO Sederhana, Array, dan Error Handling.
 
@@ -114,64 +114,80 @@ public abstract void tampilkanInfo();
 }
 ```
 
-10. **Seleksi** adalah statement kontrol yang digunakan untuk membuat keputusan berdasarkan kondisi. Pada kode ini, digunakan seleksi `if else` dalam method `getFakultas` dan seleksi `switch` dalam method `getProdi`.
+10. **Seleksi** adalah statement kontrol yang digunakan untuk membuat keputusan berdasarkan kondisi. Pada kode ini, digunakan seleksi `if else` dalam method `main` pada file `TokoGameOnline.java`. Seleksi ini digunakan untuk memeriksa apakah game yang dipilih ditemukan dan apakah budget pengguna mencukupi.
 
 ```bash
-public String getFakultas() {
-    if(getNpm().substring(2, 4).equals("10")){
-        return "Teknologi Informasi";
-    } else {
-        return "Fakultas lain";
-    }
-
-    //return getNpm().substring(2, 4).equals("10") ? "Teknologi Informasi" : "Fakultas lain";
-}
-
-public String getProdi() {
-    switch(getNpm().substring(4, 6)) {
-        case "01":
-            return "Teknik Informatika";
-        case "02":
-            return "Sistem Informasi";
-        default:
-            return "Prodi lain";
-    }
-}
+if (gameDipilih != null) {
+            System.out.println("\nAnda memilih: " + gameDipilih.getNama());
+            if (budget >= gameDipilih.getHarga()) {
+                System.out.println("Selamat! Pembelian berhasil.");
+                System.out.printf("Sisa budget Anda: Rp%,.0f\n", (budget - gameDipilih.getHarga()));
+            } else {
+                System.out.println("Maaf, budget Anda tidak mencukupi.");
+                System.out.printf("Kekurangan: Rp%,.0f\n", (gameDipilih.getHarga() - budget));
+            }
+        } else {
+            System.out.println("\nMaaf, game dengan ID '" + idBeli + "' tidak ditemukan di katalog.");
+        }
 ```
 
 11. **Perulangan** adalah statement kontrol yang digunakan untuk menjalankan blok kode berulang kali. Pada kode ini, digunakan loop `for` untuk meminta input dan menampilkan data.
 
 ```bash
-for (int i = 0; i < mahasiswas.length; i++) {
-    ...
+for (Produk game : daftarGame) {
+            game.tampilkanInfo();
+            System.out.println("--------------------");
+        }
+
+for (Produk game : daftarGame) {
+    if (game.getIdProduk().equalsIgnoreCase(idBeli)) {
+        gameDipilih = game;
+        break;
+    }
 }
 ```
+
 
 12. **Input Output Sederhana** digunakan untuk menerima input dari user dan menampilkan output ke user. Pada kode ini, digunakan class `Scanner` untuk menerima input dan method `System.out.println` untuk menampilkan output.
 
 ```bash
-Scanner scanner = new Scanner(System.in);
-System.out.print("Masukkan Nama Mahasiswa ke-" + (i + 1) + ": ");
-String nama = scanner.nextLine();
+System.out.print("\nMasukkan ID Game yang ingin dibeli: ");
+String idBeli = scanner.next();
 
-System.out.println("\nData Mahasiswa:");
-System.out.println(mahasiswa.displayInfo());
+System.out.print("Masukkan budget Anda: Rp");
+budget = scanner.nextDouble();
+
+System.out.println("========================================");
+System.out.println("SELAMAT DATANG DI TOKO GAME MYSTERIO");
+//...
+System.out.println("Selamat! Pembelian berhasil.");
+
+    System.out.println("ID Game: " + super.getIdProduk());
+    System.out.println("Nama Game: " + super.getNama());
+    System.out.println("Genre: " + this.genre);
+    System.out.printf("Harga: Rp%,.0f\n", super.getHarga());
+}
 ```
 
-13. **Array** adalah struktur data yang digunakan untuk menyimpan beberapa nilai dalam satu variabel. Pada kode ini, `MahasiswaDetail[] mahasiswas = new MahasiswaDetail[2];` adalah contoh penggunaan array.
+13. **Array** adalah struktur data yang digunakan untuk menyimpan beberapa nilai dalam satu variabel. Pada kode ini, `daftarGame[0] = new ProdukGame("001", "Cyberpunk 2077", 250000, "RPG");` adalah contoh penggunaan array.
 
 ```bash
-MahasiswaDetail[] mahasiswas = new MahasiswaDetail[2];
+daftarGame[0] = new ProdukGame("001", "Cyberpunk 2077", 250000, "RPG");
+daftarGame[1] = new ProdukGame("002", "Red Dead Redemption 2", 319000, "Open World");
+daftarGame[2] = new ProdukGame("003", "Elden Ring", 750000, "Action RPG");
+
 ```
 
 14. **Error Handling** digunakan untuk menangani error yang mungkin terjadi saat runtime. Pada kode ini, digunakan `try catch` untuk menangani error.
 
 ```bash
 try {
-    // code that might throw an exception
-} catch (Exception e) {
-    System.out.println("Error: " + e.getMessage());
-}
+    System.out.print("Masukkan budget Anda: Rp");
+    budget = scanner.nextDouble();
+} catch (InputMismatchException e) {
+    System.out.println("Input salah! Harap masukkan angka yang valid.");
+    scanner.next(); // Membersihkan input yang salah dari scanner
+    }
 ```
 
 ## Usulan nilai
